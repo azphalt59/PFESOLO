@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 963194229}
   - component: {fileID: 2484234638451092782}
   - component: {fileID: 9055715180957928230}
+  - component: {fileID: 3307611575473797506}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -29,12 +30,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0, y: -1.3300002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6278589341114112294}
-  m_RootOrder: 4
+  m_Father: {fileID: 6703708224862015013}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &963194227
 Camera:
@@ -115,6 +116,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 6022316779006961170}
   mouseSensitivity: 1200
+  canRotate: 0
+  thirdMouseSensitivity: 100
+  rotationSpeed: 5
+  smoothFactor: 0.5
+  cameraOffset: {x: 0, y: 0, z: 0}
+  thirdPersonCanRotate: 0
+  rotateAroundPlayer: 0
 --- !u!114 &9055715180957928230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +135,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4c6624d29c74f40940a4d95e40d3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3307611575473797506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998e22959dd9ac540bacc9ea723d3f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PossededItem: {fileID: 0}
+  SmoothFactor: 0.5
+  LookAtPlayer: 0
+  RotateAroundPlayer: 1
+  RotationsSpeed: 5
 --- !u!1 &838358788024435506
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +182,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 963194228}
   m_Father: {fileID: 6278589341114112294}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -255,6 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possessionState: 0
   possItem: {fileID: 0}
+  cursor: {fileID: 0}
 --- !u!1 &4426349406190807518
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +507,6 @@ Transform:
   - {fileID: 4428994593450635628}
   - {fileID: 6703708224862015013}
   - {fileID: 4734638961008873411}
-  - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

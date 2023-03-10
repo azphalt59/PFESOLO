@@ -40,6 +40,7 @@ public class Possessable : MonoBehaviour, IPossesable
     public void BeingPossessed()
     {
         Debug.Log("JE SUIS POSSEDE");
+        PlayerMovement.Instance.gameObject.GetComponent<Collider>().enabled = false;
         PossManager.Instance.possessionState = PossManager.PossessionState.InPossession;
         PossManager.Instance.SetPossItem(gameObject);
         PlayerMovement.Instance.PossessionTransitionMvt(transform.position);

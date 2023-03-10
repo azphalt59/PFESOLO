@@ -11,6 +11,7 @@ public class PossManager : MonoBehaviour
     }
     public PossessionState possessionState;
     [SerializeField] private GameObject possItem;
+    [SerializeField] private GameObject cursor;
 
 
     private void Awake()
@@ -26,7 +27,13 @@ public class PossManager : MonoBehaviour
     {
         possessionState = PossessionState.Free;
     }
-
+    private void Update()
+    {
+        if (possessionState == PossessionState.InPossession)
+            cursor.SetActive(false);
+        else
+            cursor.SetActive(true);
+    }
     public void PossessionEntry()
     {
         possessionState = PossessionState.InPossession;

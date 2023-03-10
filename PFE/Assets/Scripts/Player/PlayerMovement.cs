@@ -36,7 +36,12 @@ public class PlayerMovement : MonoBehaviour
             FirstPersonMvt();
         if (PossManager.Instance.possessionState == PossManager.PossessionState.InPossession)
         {
-
+            if(Input.GetMouseButtonDown(1))
+            {
+                ReleaseFromPossession();
+                return;
+            }
+            ThirdPersonMvt();
         }
     }
 
@@ -53,7 +58,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void ThirdPersonMvt()
     {
+        Vector3 inputVector;
+        inputVector.x = Input.GetAxisRaw("Horizontal");
+        inputVector.z = Input.GetAxisRaw("Vertical");
 
+        Vector3 camDir = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 movement = inputVector.z * camDir + inputVector.x * Camera.main.transform.right;
+
+        PossManager.Instance.GetPossItem().transform.LookAt(PossManager.Instance.GetPossItem().transform.position - movement);
+        movement = transform.InverseTransformDirection(movement);
+       
+
+        transform.parent.position += movement.normalized * thirdPersonSpeed * Time.deltaTime;
+        
     }
 
     public void PossessionTransitionMvt(Vector3 endPosition)
@@ -69,6 +86,14 @@ public class PlayerMovement : MonoBehaviour
     public float GetCamTransitionDuration()
     {
         return camTransitionDuration;
+    }
+
+    public void ReleaseFromPossession()
+    {
+        PossManager.Instance.possessionState = PossManager.PossessionState.Free;
+        PossManager.Instance.GetPossItem().transform.parent = null;
+        PossManager.Instance.SetPossItem(null);
+        cam.GetComponent<PlayerFollow>().enabled = false;
     }
 
    

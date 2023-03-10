@@ -18,6 +18,9 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         if (PossManager.Instance.possessionState == PossManager.PossessionState.Free)
-            transform.position = player.transform.position + new Vector3(0,camHeightOffset,0);
+        {
+            transform.position = player.transform.position + new Vector3(0, camHeightOffset, 0);
+        }
+            
     }
 }

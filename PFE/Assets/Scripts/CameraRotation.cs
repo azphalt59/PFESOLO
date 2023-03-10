@@ -12,6 +12,16 @@ public class CameraRotation : MonoBehaviour
     float xRotation = 0f;
     public bool canRotate = false;
 
+    float thirdMouseX;
+    float thirdMouseY;
+    public float thirdMouseSensitivity = 100f;
+    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float smoothFactor = 0.5f;
+    public Vector3 cameraOffset = Vector3.zero;
+
+    public bool thirdPersonCanRotate = false;
+    public bool rotateAroundPlayer = false;
+
     void Start()
     {
         // Bloque le curseur dans la fenêtre de jeu et le cache
@@ -22,16 +32,17 @@ public class CameraRotation : MonoBehaviour
     {
         if(PossManager.Instance.possessionState == PossManager.PossessionState.Free)
         {
-            CameraRot();
+            CameraRotFirstPerson();
         }
         if(PossManager.Instance.possessionState == PossManager.PossessionState.InPossession)
         {
-            
+            //if(thirdPersonCanRotate)
+            //    CameraRotThirdPerson();
         }
       
     }
 
-    public void CameraRot()
+    public void CameraRotFirstPerson()
     {
         // Récupère les mouvements de la souris
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -45,5 +56,17 @@ public class CameraRotation : MonoBehaviour
         // Fait tourner le joueur pour qu'il soit face à la vue de la caméra
         player.transform.Rotate(Vector3.up * mouseX);
         transform.parent.rotation = Quaternion.Euler(0f, player.transform.rotation.eulerAngles.y, 0f);
+    }
+
+    public void CameraRotThirdPerson()
+    {
+        Quaternion camTurnAngle =
+            Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
+
+        Vector3 newPosition = PossManager.Instance.GetPossItem().transform.position + cameraOffset;
+        transform.position = Vector3.Slerp(transform.position, newPosition, smoothFactor);
+
+        transform.LookAt(PossManager.Instance.GetPossItem().transform);
+        
     }
 }
